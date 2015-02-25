@@ -1,6 +1,6 @@
 (function ( $ ) {
 
-    function Theme() {
+    function App() {
         // Your options goes here
         this.foo = false;
 
@@ -8,12 +8,12 @@
         this.nav();
     }
 
-    Theme.prototype.nav = function () {
-        // Here you have access to this.foo
+    App.prototype.nav = function () {
+        // Here you have access to this.foo, go crazy
     };
 
     $( document ).ready( function () {
-        new Theme();
+        new App();
     } );
 
 })( jQuery );
