@@ -9,8 +9,7 @@ var fs           = require( 'fs-extra' ),
     minifycss    = require( 'gulp-minify-css' ),
     livereload   = require( 'gulp-livereload' ),
     rename       = require( 'gulp-rename' ),
-    install      = require( "gulp-install" ),
-    replace      = require( 'gulp-replace' );
+    install      = require( "gulp-install" );
 
 var project = util.env.project ? util.env.project : null;
 
