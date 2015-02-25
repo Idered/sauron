@@ -12,50 +12,31 @@ var fs           = require( 'fs-extra' ),
     install      = require( "gulp-install" ),
     replace      = require( 'gulp-replace' );
 
-var theme = util.env.theme ? util.env.theme : null;
+var project = util.env.project ? util.env.project : null;
 
-var paths = {
-    base: './themes/' + theme + '/',
-    styles: 'themes/' + theme + '/sass',
-    scripts: 'themes/' + theme + '/js',
-    dist: 'themes/' + theme + '/dist/',
-    bower: './themes/' + theme + '/bower.json'
-};
+var paths = setupPaths( project );
 
 gulp.task( 'new', function () {
-    var name = util.env.name;
-    var dir = './themes/' + name;
+    var projectName = util.env.name;
+    var projectDir = './project/' + name;
 
-    if ( name ) {
-        // Check if theme exists
+    if ( projectName ) {
+
+        // Check if project exists
         if ( fs.existsSync( dir ) ) {
-            console.log( util.colors.red( name + ' theme already exists in your themes directory.' ) );
+            console.log( util.colors.red( name + ' project already exists in your project directory.' ) );
 
             process.exit( 1 );
         }
 
-        // Copy default theme files into new theme
-        fs.copy( './themes/default', dir, function ( err ) {
+        // Copy default project files into new project
+        fs.copy( './project/Default', projectDir, function ( err ) {
             if ( err ) return console.error( err );
 
-            console.log( '  ' + util.colors.cyan( name + ' theme was created. Installing dependencies...' ) );
-
-            var bower = dir + '/bower.json';
-            var config = require( bower );
+            console.log( '  ' + util.colors.cyan( name + ' project was created. Installing dependencies...' ) );
 
             // Install bower dependencies
-            gulp.src( [ bower ] ).pipe( install() );
-
-            // Update theme info
-            gulp.src( [ dir + '/dist/index.html', dir + '/sass/style.scss' ] )
-                .pipe( replace( '{NAME}', name ) )
-                .pipe( replace( '{AUTHOR}', config.author ) )
-                .pipe( replace( '{VERSION}', config.version ) )
-                .pipe( gulp.dest( function ( file ) {
-                    return file.base;
-                } ) );
-
-            config.name = name + ' theme';
+            gulp.src( [ projectDir + '/bower.json' ] ).pipe( install() );
         } );
     } else {
         console.log( '  ' + util.colors.red( '--name NAME' ) + ' flag is required' );
@@ -63,22 +44,22 @@ gulp.task( 'new', function () {
 } );
 
 gulp.task( 'check', function () {
-    // No theme name was passed, show info about options
-    if ( ! theme ) {
+    // No project name was passed, show info about options
+    if ( ! project ) {
         console.log(
             '   Usage:',
-            '\n   ' + util.colors.red( 'gulp --theme NAME' ) + ' - ' + util.colors.cyan( 'Compile and watch resources, run live reload.' ),
-            '\n   ' + util.colors.red( 'gulp add --name NAME' ) + ' - ' + util.colors.cyan( 'Create new theme.' )
+            '\n   ' + util.colors.red( 'gulp --project NAME' ) + ' - ' + util.colors.cyan( 'Compile and watch resources, run live reload.' ),
+            '\n   ' + util.colors.red( 'gulp add --name NAME' ) + ' - ' + util.colors.cyan( 'Create new project.' )
         );
 
         process.exit( 1 );
     }
 
-    // No theme was found with given name
-    if ( ! fs.existsSync( paths.base ) ) {
+    // No project was found with given name
+    if ( ! fs.existsSync( paths.project ) ) {
         console.log(
-            '  ' + util.colors.red( theme + ' theme was not found.' ),
-            '\n  To create new theme run \'' + util.colors.cyan( 'gulp add --new NAME' ) + '\''
+            '  ' + util.colors.red( project + ' project was not found.' ),
+            '\n  To create new project run \'' + util.colors.cyan( 'gulp add --new NAME' ) + '\''
         );
 
         process.exit( 1 );
@@ -95,10 +76,10 @@ gulp.task( 'styles', function () {
 } );
 
 gulp.task( 'vendor', function () {
-    var files = require( paths.bower ).vendor;
+    var files = require( paths.config ).vendor;
 
     files.forEach( function ( file, index ) {
-        files[ index ] = paths.base + file;
+        files[ index ] = paths.project + file;
     } );
 
     return gulp.src( files )
@@ -130,3 +111,18 @@ gulp.task( 'watch', function () {
 gulp.task( 'build', [ 'check', 'styles', 'scripts', 'vendor' ] );
 gulp.task( 'default', [ 'build', 'watch', 'livereload' ] );
 
+/**
+ * ============================================================================
+ */
+
+function setupPaths( name ) {
+    var base = './projects/' + name + '/';
+
+    return {
+        project: base,
+        styles: base + '/sass',
+        scripts: base + '/js',
+        dist: base + '/dist/',
+        config: base + '/bower.json'
+    };
+}
