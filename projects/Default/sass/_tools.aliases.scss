@@ -3,7 +3,11 @@
 //\*------------------------------------*/
 
 // Reassign lengthy inuitcss variables to shorter alternatives.
-$spacing-unit:          $inuit-base-spacing-unit;
+$su:                $inuit-base-spacing-unit;
+$su-tiny:           $inuit-base-spacing-unit--tiny;
+$su-small:          $inuit-base-spacing-unit--small;
+$su-large:          $inuit-base-spacing-unit--large;
+$su-huge:           $inuit-base-spacing-unit--huge;
 
 @mixin font-size($args...) {
     @include inuit-font-size($args...);
