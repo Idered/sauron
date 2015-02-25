@@ -17,22 +17,22 @@ var paths = setupPaths( project );
 
 gulp.task( 'new', function () {
     var projectName = util.env.name;
-    var projectDir = './project/' + name;
+    var projectDir = './projects/' + projectName;
 
     if ( projectName ) {
 
         // Check if project exists
-        if ( fs.existsSync( dir ) ) {
-            console.log( util.colors.red( name + ' project already exists in your project directory.' ) );
+        if ( fs.existsSync( projectDir ) ) {
+            console.log( util.colors.red( projectName + ' project already exists in your project directory.' ) );
 
             process.exit( 1 );
         }
 
         // Copy default project files into new project
-        fs.copy( './project/Default', projectDir, function ( err ) {
+        fs.copy( './projects/default', projectDir, function ( err ) {
             if ( err ) return console.error( err );
 
-            console.log( '  ' + util.colors.cyan( name + ' project was created. Installing dependencies...' ) );
+            console.log( '  ' + util.colors.cyan( projectName + ' project was created. Installing dependencies...' ) );
 
             // Install bower dependencies
             gulp.src( [ projectDir + '/bower.json' ] ).pipe( install() );
@@ -48,7 +48,7 @@ gulp.task( 'check', function () {
         console.log(
             '   Usage:',
             '\n   ' + util.colors.red( 'gulp --project NAME' ) + ' - ' + util.colors.cyan( 'Compile and watch resources, run live reload.' ),
-            '\n   ' + util.colors.red( 'gulp add --name NAME' ) + ' - ' + util.colors.cyan( 'Create new project.' )
+            '\n   ' + util.colors.red( 'gulp new --name NAME' ) + ' - ' + util.colors.cyan( 'Create new project.' )
         );
 
         process.exit( 1 );
@@ -58,7 +58,7 @@ gulp.task( 'check', function () {
     if ( ! fs.existsSync( paths.project ) ) {
         console.log(
             '  ' + util.colors.red( project + ' project was not found.' ),
-            '\n  To create new project run \'' + util.colors.cyan( 'gulp add --new NAME' ) + '\''
+            '\n  To create new project run \'' + util.colors.cyan( 'gulp new --name NAME' ) + '\''
         );
 
         process.exit( 1 );
@@ -104,7 +104,7 @@ gulp.task( 'livereload', function () {
 gulp.task( 'watch', function () {
     gulp.watch( paths.scripts + '/**/*.js', [ 'scripts' ] );
     gulp.watch( paths.styles + '/**/*.*', [ 'styles' ] );
-    gulp.watch( paths.vendorFile, [ 'vendor' ] );
+    gulp.watch( paths.config, [ 'vendor' ] );
 } );
 
 gulp.task( 'build', [ 'check', 'styles', 'scripts', 'vendor' ] );
