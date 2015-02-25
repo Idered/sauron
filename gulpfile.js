@@ -9,50 +9,72 @@ var fs           = require( 'fs-extra' ),
     minifycss    = require( 'gulp-minify-css' ),
     livereload   = require( 'gulp-livereload' ),
     rename       = require( 'gulp-rename' ),
-    install      = require( "gulp-install" );
+    install      = require( "gulp-install" ),
+    replace      = require( 'gulp-replace' );
 
-var theme = util.env.theme ? util.env.theme : 'default';
+var theme = util.env.theme ? util.env.theme : null;
 
 var paths = {
     base: './themes/' + theme + '/',
     styles: 'themes/' + theme + '/sass',
     scripts: 'themes/' + theme + '/js',
     dist: 'themes/' + theme + '/dist/',
-    config: './themes/' + theme + '/config.json'
+    bower: './themes/' + theme + '/bower.json'
 };
 
-gulp.task( 'add', function () {
+gulp.task( 'new', function () {
     var name = util.env.name;
     var dir = './themes/' + name;
 
     if ( name ) {
+        // Check if theme exists
+        if ( fs.existsSync( dir ) ) {
+            console.log( util.colors.red( name + ' theme already exists in your themes directory.' ) );
+
+            process.exit( 1 );
+        }
+
+        // Copy default theme files into new theme
         fs.copy( './themes/default', dir, function ( err ) {
             if ( err ) return console.error( err );
 
-            console.log(
-                '  ' + util.colors.cyan( name + ' theme was created. Installing dependencies...' )
-            );
+            console.log( '  ' + util.colors.cyan( name + ' theme was created. Installing dependencies...' ) );
 
-            gulp.src( [ dir + '/bower.json' ] ).pipe( install() );
+            var bower = dir + '/bower.json';
+            var config = require( bower );
+
+            // Install bower dependencies
+            gulp.src( [ bower ] ).pipe( install() );
+
+            // Update theme info
+            gulp.src( [ dir + '/dist/index.html', dir + '/sass/style.scss' ] )
+                .pipe( replace( '{NAME}', name ) )
+                .pipe( replace( '{AUTHOR}', config.author ) )
+                .pipe( replace( '{VERSION}', config.version ) )
+                .pipe( gulp.dest( function ( file ) {
+                    return file.base;
+                } ) );
+
+            config.name = name + ' theme';
         } );
     } else {
-        console.log(
-            '  ' + util.colors.red( '--name NAME' ) + ' flag is required'
-        );
+        console.log( '  ' + util.colors.red( '--name NAME' ) + ' flag is required' );
     }
 } );
 
 gulp.task( 'check', function () {
-    if ( theme == 'default' ) {
+    // No theme name was passed, show info about options
+    if ( ! theme ) {
         console.log(
             '   Usage:',
-            '\n   ' + util.colors.red( 'gulp --theme NAME' ) + ' - ' + util.colors.cyan('Compile and watch resources, run live reload.'),
-            '\n   ' + util.colors.red( 'gulp add --name NAME' ) + ' - ' + util.colors.cyan('Create new theme.')
+            '\n   ' + util.colors.red( 'gulp --theme NAME' ) + ' - ' + util.colors.cyan( 'Compile and watch resources, run live reload.' ),
+            '\n   ' + util.colors.red( 'gulp add --name NAME' ) + ' - ' + util.colors.cyan( 'Create new theme.' )
         );
 
         process.exit( 1 );
     }
 
+    // No theme was found with given name
     if ( ! fs.existsSync( paths.base ) ) {
         console.log(
             '  ' + util.colors.red( theme + ' theme was not found.' ),
@@ -73,7 +95,7 @@ gulp.task( 'styles', function () {
 } );
 
 gulp.task( 'vendor', function () {
-    var files = require( paths.config ).vendor;
+    var files = require( paths.bower ).vendor;
 
     files.forEach( function ( file, index ) {
         files[ index ] = paths.base + file;
@@ -105,4 +127,6 @@ gulp.task( 'watch', function () {
     gulp.watch( paths.vendorFile, [ 'vendor' ] );
 } );
 
-gulp.task( 'default', [ 'check', 'styles', 'scripts', 'vendor', 'watch', 'livereload' ] );
+gulp.task( 'build', [ 'check', 'styles', 'scripts', 'vendor' ] );
+gulp.task( 'default', [ 'build', 'watch', 'livereload' ] );
+

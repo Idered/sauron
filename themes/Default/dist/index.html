@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-    <!-- THEME NAME v1.0.0 | Copyright © 2015 by AUTHOR -->
+    <!-- {NAME} v{VERSION} | Copyright © 2015 by {AUTHOR} -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-    <title>{Title}</title>
+    <title>{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} - {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
 
-    <meta name="description" content="{MetaDescription}"/>
+    {block:Description}
+    <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
 
     <link rel="alternate" type="application/rss+xml" href="{RSS}"/>
     <link rel="apple-touch-icon-precomposed" href="{PortraitURL-128}"/>
@@ -17,9 +19,17 @@
 
     <link rel="stylesheet" href="style.min.css">
 
+    {block:Hidden}
+    <!-- Place your options here -->
+    {/block:Hidden}
+
+    <style type="text/css">
+        {CustomCSS}
+    </style>
+
     <script>document.documentElement.className = document.documentElement.className.replace( "no-js", "js" );</script>
 </head>
-<body>
+<body class="{block:IndexPage}page-index{/block:IndexPage} {block:PermalinkPage}page-permalink{/block:PermalinkPage}">
 
 <script src="vendor.min.js"></script>
 <script src="script.min.js"></script>
