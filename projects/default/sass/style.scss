@@ -1,5 +1,5 @@
 @charset "UTF-8";
- /**
+/**
   * SETTINGS -- Sass vars, etc
   * TOOLS -- Functions and mixins
   * GENERIC -- Generic, high-level styling, like resets, etc
@@ -37,10 +37,7 @@
 
 /* Base
    ========================================================================== */
-@import "base.page";
 @import "base.link";
-@import "base.input";
-@import "base.list";
 @import "base.text";
 
 
@@ -116,6 +113,32 @@ $inuit-enable-btn--large:   false;
 $inuit-enable-btn--full:    false;
 $inuit-enable-btn--pill:    false;
 @import "../vendor/inuit-buttons/objects.buttons";
+
+
+/**
+ * Split
+ */
+$firo-enable-split--table:      false !default;
+$firo-enable-split--responsive: false !default;
+@import "../vendor/firo-split/objects.split";
+
+
+/**
+ * Join
+ */
+$firo-spacing-join:               30px !default;
+$firo-spacing-join-large:         70px !default;
+$firo-spacing-join-small:         15px !default;
+$firo-spacing-join-tiny:          7px  !default;
+
+$firo-enable-join--tiny:          false !default;
+$firo-enable-join--small:         false !default;
+$firo-enable-join--large:         false !default;
+$firo-enable-join--middle:        false !default;
+$firo-enable-join--bottom:        false !default;
+$firo-enable-join--force:         false !default;
+$firo-enable-join--responsive:    false !default;
+@import "../vendor/firo-join/objects.join";
 
 
 @import "../vendor/inuit-list-bare/objects.list-bare";
