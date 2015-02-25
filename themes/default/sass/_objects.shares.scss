@@ -1,0 +1,19 @@
+.shares {
+	overflow: hidden;
+
+	* {
+		display: inline-block !important;
+		vertical-align: top !important;
+	}
+
+	@include media-query(palm) {
+		& > * {
+			display: block !important;
+			width: 100% !important;
+		}
+
+		& > * + * {
+			margin-top: quarter($spacing-unit);
+		}
+	}
+}

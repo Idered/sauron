@@ -1,0 +1,29 @@
+{
+  "name": "Tumblr boilerplate theme",
+  "dependencies": {
+    "inuit-widths-responsive": "~0.1.5",
+    "inuit-headings-trumps": "~0.1.2",
+    "inuit-normalize": "~3.0.2",
+    "inuit-widths": "~0.3.2",
+    "inuit-spacing": "~0.6.2",
+    "inuit-clearfix": "~0.2.1",
+    "inuit-responsive-tools": "~0.1.3",
+    "inuit-media": "~0.4.2",
+    "inuit-list-bare": "~0.3.0",
+    "inuit-layout": "~0.3.2",
+    "inuit-buttons": "~0.4.1",
+    "inuit-page": "~0.2.1",
+    "inuit-reset": "~0.1.1",
+    "inuit-box-sizing": "~0.2.0",
+    "inuit-lists": "~0.1.0",
+    "inuit-images": "~0.3.3",
+    "inuit-print": "*",
+    "inuit-spacing-responsive": "~0.0.5",
+    "inuit-shared": "~0.1.5",
+    "firo-split": "~0.1.0",
+    "firo-join": "~0.1.0",
+    "inuit-flag": "~0.3.2",
+    "inuit-mixins": "~0.2.3",
+    "jquery": "~2.1.3"
+  }
+}

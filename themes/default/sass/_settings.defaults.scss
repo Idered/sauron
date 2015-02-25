@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    #DEFAULTS
+\*------------------------------------*/
+
+$inuit-base-font-size:          16px;
+$inuit-base-line-height:        24px;
+$inuit-base-text-color:         $text;
+$inuit-base-background-color:   $body;
+
+
+// Namespace.
+//
+// Would you like inuitcss’ classes to be prepended with a namespace? If so,
+// define it here.
+$inuit-namespace:               null;
+
+
+// Headings.
+//
+// These font sizes, defined in pixels, will be converted into rems (with pixel
+// fallbacks) by inuitcss.
+$inuit-heading-size-1:          36px;
+$inuit-heading-size-2:          30px;
+$inuit-heading-size-3:          24px;
+$inuit-heading-size-4:          20px;
+$inuit-heading-size-5:          16px;
+$inuit-heading-size-6:          14px;
+
+$milli-size:                    13px;
+$micro-size:                    12px;
+$nano-size:                     11px;
+
+
+// These variables are framework variables, sourced from variables defined
+// above. Feel free to use these variables throughout your project, but do not
+// modify or reassign them.
+$inuit-base-spacing-unit:           30px;
+$inuit-base-spacing-unit--tiny:     7px;
+$inuit-base-spacing-unit--small:    15px;
+$inuit-base-spacing-unit--large:    70px;
+$inuit-base-spacing-unit--huge:     140px;
