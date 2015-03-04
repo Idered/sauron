@@ -15,24 +15,24 @@
 @import "settings.defaults";
 @import "settings.responsive";
 @import "settings.spacing";
-@import "../vendor/inuit-responsive-settings/settings.responsive";
+@import "../../../vendor/inuit-responsive-settings/settings.responsive";
 
 /* Tools
    ========================================================================== */
-@import "../vendor/inuit-responsive-tools/tools.responsive";
-@import "../vendor/inuit-mixins/tools.mixins";
+@import "../../../vendor/inuit-responsive-tools/tools.responsive";
+@import "../../../vendor/inuit-mixins/tools.mixins";
 @import "tools.aliases";
 
 /* Generic
    ========================================================================== */
-@import "../vendor/inuit-shared/generic.shared";
-@import "../vendor/inuit-normalize/generic.normalize";
-@import "../vendor/inuit-reset/generic.reset";
-@import "../vendor/inuit-box-sizing/generic.box-sizing";
-@import "../vendor/inuit-headings/base.headings";
-@import "../vendor/inuit-images/base.images";
-@import "../vendor/inuit-lists/base.lists";
-@import "../vendor/inuit-page/base.page";
+@import "../../../vendor/inuit-shared/generic.shared";
+@import "../../../vendor/inuit-normalize/generic.normalize";
+@import "../../../vendor/inuit-reset/generic.reset";
+@import "../../../vendor/inuit-box-sizing/generic.box-sizing";
+@import "../../../vendor/inuit-headings/base.headings";
+@import "../../../vendor/inuit-images/base.images";
+@import "../../../vendor/inuit-lists/base.lists";
+@import "../../../vendor/inuit-page/base.page";
 
 
 /* Base
@@ -59,7 +59,7 @@ $inuit-enable-layout--middle:   false;
 $inuit-enable-layout--bottom:   false;
 $inuit-enable-layout--right:    false;
 $inuit-enable-layout--center:   false;
-@import "../vendor/inuit-layout/objects.layout";
+@import "../../../vendor/inuit-layout/objects.layout";
 
 
 /**
@@ -75,7 +75,7 @@ $inuit-enable-media--rev:           false;
 $inuit-enable-media--flush:         false;
 $inuit-enable-media--responsive:    false;
 $inuit-media-collapse-at:           720px;
-@import "../vendor/inuit-media/objects.media";
+@import "../../../vendor/inuit-media/objects.media";
 
 /**
  * Flag
@@ -92,7 +92,7 @@ $inuit-enable-flag--top:        false;
 $inuit-enable-flag--bottom:     false;
 $inuit-enable-flag--responsive: false;
 $inuit-flag-collapse-at:        720px;
-@import "../vendor/inuit-flag/objects.flag";
+@import "../../../vendor/inuit-flag/objects.flag";
 
 
 /**
@@ -112,7 +112,7 @@ $inuit-enable-btn--small:   false;
 $inuit-enable-btn--large:   false;
 $inuit-enable-btn--full:    false;
 $inuit-enable-btn--pill:    false;
-@import "../vendor/inuit-buttons/objects.buttons";
+@import "../../../vendor/inuit-buttons/objects.buttons";
 
 
 /**
@@ -120,7 +120,7 @@ $inuit-enable-btn--pill:    false;
  */
 $firo-enable-split--table:      false !default;
 $firo-enable-split--responsive: false !default;
-@import "../vendor/firo-split/objects.split";
+@import "../../../vendor/firo-split/objects.split";
 
 
 /**
@@ -138,10 +138,10 @@ $firo-enable-join--middle:        false !default;
 $firo-enable-join--bottom:        false !default;
 $firo-enable-join--force:         false !default;
 $firo-enable-join--responsive:    false !default;
-@import "../vendor/firo-join/objects.join";
+@import "../../../vendor/firo-join/objects.join";
 
 
-@import "../vendor/inuit-list-bare/objects.list-bare";
+@import "../../../vendor/inuit-list-bare/objects.list-bare";
 @import "objects.shares";
 @import "objects.wrapper";
 
@@ -151,9 +151,9 @@ $firo-enable-join--responsive:    false !default;
 
 /* Trumps
    ========================================================================== */
-@import "../vendor/inuit-widths/trumps.widths";
-@import "../vendor/inuit-widths-responsive/trumps.widths-responsive";
-@import "../vendor/inuit-spacing/trumps.spacing";
-@import "../vendor/inuit-spacing-responsive/trumps.spacing-responsive";
-@import "../vendor/inuit-clearfix/trumps.clearfix";
-@import "../vendor/inuit-print/trumps.print";
+@import "../../../vendor/inuit-widths/trumps.widths";
+@import "../../../vendor/inuit-widths-responsive/trumps.widths-responsive";
+@import "../../../vendor/inuit-spacing/trumps.spacing";
+@import "../../../vendor/inuit-spacing-responsive/trumps.spacing-responsive";
+@import "../../../vendor/inuit-clearfix/trumps.clearfix";
+@import "../../../vendor/inuit-print/trumps.print";
