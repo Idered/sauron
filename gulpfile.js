@@ -7,8 +7,8 @@ var fs           = require( 'fs-extra' ),
     uglify       = require( 'gulp-uglify' ),
     autoprefixer = require( 'gulp-autoprefixer' ),
     minifycss    = require( 'gulp-minify-css' ),
-    livereload   = require( 'gulp-livereload' ),
     rename       = require( 'gulp-rename' ),
+    connect      = require( 'gulp-connect'),
     install      = require( "gulp-install" );
 
 var project = util.env.project ? util.env.project : null;
@@ -67,11 +67,19 @@ gulp.task( 'check', function () {
 
 gulp.task( 'styles', function () {
     return gulp.src( paths.styles + '/**/*.scss' )
-        .pipe( sass( { style: 'expanded' } ) )
+        .pipe( sass( {
+            style: 'expanded',
+            onError: function (error) {
+                util.log(util.colors.red('Error: ' + error.message));
+                util.log('File: ' + util.colors.red(error.file + ':'  + error.line));
+                util.beep();
+            }
+        } ) )
         .pipe( autoprefixer( 'last 2 version', 'safari 5', 'ie 9', 'opera 12.1' ) )
         .pipe( rename( { suffix: '.min' } ) )
         .pipe( minifycss() )
-        .pipe( gulp.dest( paths.dist ) );
+        .pipe( gulp.dest( paths.dist ) )
+        .pipe( connect.reload() );
 } );
 
 gulp.task( 'vendor', function () {
@@ -85,26 +93,37 @@ gulp.task( 'vendor', function () {
         .pipe( concat( 'vendor.js' ) )
         .pipe( uglify() )
         .pipe( rename( { extname: '.min.js' } ) )
-        .pipe( gulp.dest( paths.dist ) );
+        .pipe( gulp.dest( paths.dist ) )
+        .pipe( connect.reload() );
 } );
 
 gulp.task( 'scripts', function () {
     return gulp.src( paths.scripts + '/**/*.js' )
         .pipe( uglify() )
         .pipe( rename( { extname: '.min.js' } ) )
-        .pipe( gulp.dest( paths.dist ) );
+        .pipe( gulp.dest( paths.dist ) )
+        .pipe( connect.reload() );
 } );
 
-gulp.task( 'livereload', function () {
-    livereload.listen();
-
-    gulp.watch( paths.dist + '/**/*.*' ).on( 'change', livereload.changed );
+gulp.task( 'reload', function () {
+    gulp.src(paths.dist + '/**/*.*')
+        .pipe(connect.reload())
 } );
+
+gulp.task('livereload', function () {
+    connect.server({
+        root: [ paths.dist ],
+        port: 1234,
+        livereload: true
+    });
+});
 
 gulp.task( 'watch', function () {
     gulp.watch( paths.scripts + '/**/*.js', [ 'scripts' ] );
     gulp.watch( paths.styles + '/**/*.*', [ 'styles' ] );
     gulp.watch( paths.config, [ 'vendor' ] );
+
+    gulp.watch([ paths.dist + '**/*.*'], ['reload']);
 } );
 
 gulp.task( 'build', [ 'check', 'styles', 'scripts', 'vendor' ] );
