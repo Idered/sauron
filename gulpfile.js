@@ -107,7 +107,7 @@ gulp.task( 'reload', function () {
         .pipe(connect.reload())
 } );
 
-gulp.task('livereload', function () {
+gulp.task('server', function () {
     connect.server({
         root: [ paths.dist ],
         port: 1234,
@@ -124,7 +124,7 @@ gulp.task( 'watch', function () {
 } );
 
 gulp.task( 'build', [ 'check', 'styles', 'scripts', 'vendor' ] );
-gulp.task( 'default', [ 'build', 'watch', 'livereload' ] );
+gulp.task( 'default', [ 'build', 'watch', 'server' ] );
 
 /**
  * ============================================================================
