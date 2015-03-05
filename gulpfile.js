@@ -78,8 +78,7 @@ gulp.task( 'styles', function () {
         .pipe( autoprefixer( 'last 2 version', 'safari 5', 'ie 9', 'opera 12.1' ) )
         .pipe( rename( { suffix: '.min' } ) )
         .pipe( minifycss() )
-        .pipe( gulp.dest( paths.dist ) )
-        .pipe( connect.reload() );
+        .pipe( gulp.dest( paths.dist ) );
 } );
 
 gulp.task( 'vendor', function () {
@@ -93,16 +92,14 @@ gulp.task( 'vendor', function () {
         .pipe( concat( 'vendor.js' ) )
         .pipe( uglify() )
         .pipe( rename( { extname: '.min.js' } ) )
-        .pipe( gulp.dest( paths.dist ) )
-        .pipe( connect.reload() );
+        .pipe( gulp.dest( paths.dist ) );
 } );
 
 gulp.task( 'scripts', function () {
     return gulp.src( paths.scripts + '/**/*.js' )
         .pipe( uglify() )
         .pipe( rename( { extname: '.min.js' } ) )
-        .pipe( gulp.dest( paths.dist ) )
-        .pipe( connect.reload() );
+        .pipe( gulp.dest( paths.dist ) );
 } );
 
 gulp.task( 'reload', function () {
